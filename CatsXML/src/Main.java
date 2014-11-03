@@ -1,6 +1,7 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 
 public class Main {
@@ -19,10 +22,17 @@ public class Main {
 	public static void main(String[] args) throws IOException, ParserConfigurationException {
 		
 		
-		Cat meow = new Cat(10);
+		Cat marrameu = new Cat(100);
 		System.out.println("XML cargado, y array lleno de urls...");
 
-		ArrayList<String> miau = meow.getCat();
+		ArrayList<String> miau = marrameu.getCat();
+		ObjectMapper mapper = new ObjectMapper(); 
+
+		File fur = new File("llistagats.json");	
+		mapper.writeValue(fur, "Gato");
+		mapper.writeValue(fur, miau);
+		
+		
 		int purr = 0;		
 		try {
             String path = miau.get(purr);
@@ -35,23 +45,21 @@ public class Main {
             label.addMouseListener(new MouseAdapter()   {   
 
                 public void mouseClicked(MouseEvent e)   
-                {   
-                	
+                {                   	
                 	if (!miau.isEmpty()) {
                 		String path = miau.get(purr);
                     	miau.remove(purr);                	 
     					try {	                    
     						URL url = new URL(path);
     						System.out.println("Cargando siguiente imagen de gato desde..." + path);
-    						
     						BufferedImage image = ImageIO.read(url);
     	                    label.setIcon(new ImageIcon(image));
     					} catch (MalformedURLException e1) {
     						// TODO Auto-generated catch block
-    						e1.printStackTrace();
+    						//e1.printStackTrace();
     					} catch (IOException e1) {
     						// TODO Auto-generated catch block
-    						e1.printStackTrace();
+    						//e1.printStackTrace();
     					}
 					}else{						
 						System.out.println("Ya no hay mas gatos.");

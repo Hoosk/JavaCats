@@ -43,8 +43,10 @@ public class Cat {
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {				
-				Element eElement = (Element) node;				
+				Element eElement = (Element) node;		
+				
 				this.arrayGatos.add(eElement.getElementsByTagName("url").item(0).getTextContent());
+				
 			}
 		}		
 		return this.arrayGatos;		
